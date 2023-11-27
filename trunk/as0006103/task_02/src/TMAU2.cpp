@@ -115,7 +115,7 @@ public:
         _uk = 0;
     }
 };
-template<typename T> T EnterValue(string enter, T value)
+template<typename T> T EnterValue(string const& enter, T value)
 {
     cout << enter;
     cin >> value;
