@@ -8,7 +8,7 @@ public:
     virtual double ModelFunction(double Yt, double Ut) = 0;
     virtual void OutputModel(double y, double u, int NumLin) = 0;
 };
-class NotModelLiner : public Object
+class NotModelLinerValue : public Object
 {
 public:
     double a;
@@ -17,8 +17,8 @@ public:
     double prev_yt = 0;
     double c;
     double d;
-    NotModelLiner(double a, double b, double c, double d) : a(a), b(b), c(c), d(d) {}
-    ~NotModelLiner() override = default;
+    NotModelLinerValue(double a, double b, double c, double d) : a(a), b(b), c(c), d(d) {}
+    ~NotModelLinerValue() override = default;
     double ModelFunction(double yt, double ut) override {
         return a * yt - b * pow(prev_yt, 2) + c * ut + d * sin(prev_ut);
     }
@@ -51,13 +51,13 @@ public:
     }
 };
 
-class ModelLiner : public Object
+class ModelLinerValue : public Object
 {
 public:
     double a;
     double b;
-    ModelLiner(double a, double b) : a(a), b(b) {}
-    ~ModelLiner() override = default;
+    ModelLinerValue(double a, double b) : a(a), b(b) {}
+    ~ModelLinerValue() override = default;
     double ModelFunction(double yt, double ut) override {
         return a * yt + b * ut;
     }
@@ -133,39 +133,39 @@ int main()
     double d = 0;
     int NumLin = 0;
     int NumNotLin = 0;
-    const double w = 8;
+    const double W = 8;
     const double y0 = 3;
     cout << "Number of iteration" << endl;
     EnterValue("Liner Model:", NumLin);
     EnterValue("Not Liner Model:", NumNotLin);
 
-    EnterValue("enter value y:", y);
-    EnterValue("enter value u:", u);
+    EnterValue("enter value Y:", y);
+    EnterValue("enter value U:", u);
 
 
     cout << endl << "Liner model" << endl;
-    EnterValue("enter value a:", aLiner);
-    EnterValue("enter value b:", bLiner);
+    EnterValue("enter value A:", aLiner);
+    EnterValue("enter value B:", bLiner);
 
     cout << endl << "Not liner model" << endl;
-    EnterValue("enter value a:", aNotLiner);
-    EnterValue("enter value b:", bNotLiner);
-    EnterValue("enter value c:", c);
-    EnterValue("enter value d:", d);
-    ModelLiner modelLin(aLiner, bLiner);
+    EnterValue("enter value A:", aNotLiner);
+    EnterValue("enter value B:", bNotLiner);
+    EnterValue("enter value C:", c);
+    EnterValue("enter value D:", d);
+    ModelLinerValue modelLin(aLiner, bLiner);
     modelLin.OutputModel(y, u, NumLin);
-    NotModelLiner notmodelLin(aNotLiner, bNotLiner, c, d);
+    NotModelLinerValue notmodelLin(aNotLiner, bNotLiner, c, d);
     notmodelLin.OutputModel(y, u, NumLin);
 
     Regulator PIDregulator;
 
 
     cout << "Liner Model:"<<endl;
-    PIDregulator.Regulating(w, y0, modelLin);
+    PIDregulator.Regulating(W, y0, modelLin);
     cout << endl;
 
     cout << "Not linear model" << endl;
-    PIDregulator.Regulating(w, y0, notmodelLin);
+    PIDregulator.Regulating(W, y0, notmodelLin);
     return 0;
 
 }
