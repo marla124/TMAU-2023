@@ -88,12 +88,12 @@ private:
     const double timeModeling = 30;
     double _uk = 0;
 
-    double CurrentValueUk(double e, double e1, double e2)
+    double CurrentValueUk(double eK, double eK1, double eK2)
     {
         double _q0 = _k * (1 + _td / _t0);
         double _q1 = -_k * (1 + 2 * _td / _t0 - _t0 / _t);
         double _q2 = _k * _td / _t0;
-        _uk += _q0 * e + _q1 * e1 + _q2 * e2;
+        _uk += _q0 * eK + _q1 * eK1 + _q2 * eK2;
         return _uk;
     }
 
@@ -166,5 +166,6 @@ int main()
 
     cout << "Not linear model" << endl;
     PIDregulator.Regulating(w, y0, notmodelLin);
+    return 0;
 
 }
