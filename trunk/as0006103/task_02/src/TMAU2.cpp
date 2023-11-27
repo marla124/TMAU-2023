@@ -90,27 +90,27 @@ private:
 
     double CurrentValueUk(double e, double e1, double e2)
     {
-        double q0 = _k * (1 + _td / _t0);
-        double q1 = -_k * (1 + 2 * _td / _t0 - _t0 / _t);
-        double q2 = _k * _td / _t0;
-        _uk += q0 * e + q1 * e1 + q2 * e2;
+        double _q0 = _k * (1 + _td / _t0);
+        double _q1 = -_k * (1 + 2 * _td / _t0 - _t0 / _t);
+        double _q2 = _k * _td / _t0;
+        _uk += _q0 * e + _q1 * e1 + _q2 * e2;
         return _uk;
     }
 
 public:
-    void Regulate(double w, double y0, Object& obj)
+    void Regulating(double w, double y0, Object& obj)
     {
-        double e1 = 0;
-        double e2 = 0;
-        double y = y0;
+        double E1 = 0;
+        double E2 = 0;
+        double Y = y0;
         for (int i = 1; i <= timeModeling; i++) {
-            double e;
-            e = w - y;
-            _uk = CurrentValueUk(e, e1, e2);
-            y = obj.ModelFunction(y0, _uk);
-            cout << "E = " << e << ", Yt = " << y << ", Uk = " << _uk << endl;
-            e2 = e1;
-            e1 = e;
+            double E;
+            E = w - Y;
+            _uk = CurrentValueUk(E, E1, E2);
+            Y = obj.ModelFunction(y0, _uk);
+            cout << "E = " << E << ", Yt = " << Y << ", Uk = " << _uk << endl;
+            E2 = E1;
+            E1 = E;
         }
         _uk = 0;
     }
@@ -161,11 +161,11 @@ int main()
 
 
     cout << "Liner Model:"<<endl;
-    PIDregulator.Regulate(w, y0, modelLin);
+    PIDregulator.Regulating(w, y0, modelLin);
     cout << endl;
 
     cout << "Not linear model" << endl;
-    PIDregulator.Regulate(w, y0, notmodelLin);
+    PIDregulator.Regulating(w, y0, notmodelLin);
     system("Pause");
 
 }
