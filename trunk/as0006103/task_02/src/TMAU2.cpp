@@ -166,6 +166,5 @@ int main()
 
     cout << "Not linear model" << endl;
     PIDregulator.Regulating(w, y0, notmodelLin);
-    system("Pause");
 
 }
