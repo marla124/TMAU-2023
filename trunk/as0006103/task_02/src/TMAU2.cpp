@@ -115,7 +115,12 @@ public:
         _uk = 0;
     }
 };
-
+template<typename T> T EnterValue(string enter, T value)
+{
+    cout << enter;
+    cin >> value;
+    return value;
+}
 int main()
 {
     double y = 0;
@@ -131,32 +136,22 @@ int main()
     const double w = 8;
     const double y0 = 3;
     cout << "Number of iteration" << endl;
+    EnterValue("Liner Model:", NumLin);
+    EnterValue("Not Liner Model:", NumNotLin);
 
-    cout << "Liner Model:";
-    cin >> NumLin;
+    EnterValue("enter value y:", y);
+    EnterValue("enter value u:", u);
 
-    cout << "Not Liner Model:";
-    cin >> NumNotLin;
-    cout << "enter value y:";
-    cin >> y;
-    cout << "enter value u:";
-    cin >> u;
 
     cout << endl << "Liner model" << endl;
-    cout << "enter value a:";
-    cin >> aLiner;
-    cout << "enter value b:";
-    cin >> bLiner;
+    EnterValue("enter value a:", aLiner);
+    EnterValue("enter value b:", bLiner);
 
     cout << endl << "Not liner model" << endl;
-    cout << "enter value a:";
-    cin >> aNotLiner;
-    cout << "enter value b:";
-    cin >> bNotLiner;
-    cout << "enter value c:";
-    cin >> c;
-    cout << "enter value d:";
-    cin >> d;
+    EnterValue("enter value a:", aNotLiner);
+    EnterValue("enter value b:", bNotLiner);
+    EnterValue("enter value c:", c);
+    EnterValue("enter value d:", d);
     ModelLiner modelLin(aLiner, bLiner);
     modelLin.OutputModel(y, u, NumLin);
     NotModelLiner notmodelLin(aNotLiner, bNotLiner, c, d);
