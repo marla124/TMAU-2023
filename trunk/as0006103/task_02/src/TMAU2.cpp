@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include <cmath>
 
+using namespace std;
 class Object {
 public:
     virtual ~Object() = default;
@@ -26,24 +27,24 @@ public:
         double Yt = y;
         double Ut = u;
 
-        std::cout << std::endl << std::endl << "Not liner model";
-        std::cout << "\t\t\tIteration number:" << "\t\t\t" << "Yt";
+        cout << endl << endl << "Not liner model";
+        cout << "\t\t\tIteration number:" << "\t\t\t" << "Yt";
         for (int i = 0; i < NotNumLin; i++) {
             if (i > 0) {
                 prev_ut = Ut;
                 prev_yt = Yt;
-                std::cout << std::endl << "enter value Ut:";
-                std::cin >> Ut;
+                cout << endl << "enter value Ut:";
+                cin >> Ut;
                 Yt = this->ModelFunction(Yt, Ut);
-                std::cout << "\t\t\t\t" << i + 1 << "\t\t\t\t" << Yt;
+                cout << "\t\t\t\t" << i + 1 << "\t\t\t\t" << Yt;
             }
             else {
                 prev_ut = 0; prev_yt = 0;
-                std::cout << std::endl << "enter value Ut:";
-                std::cin >> Ut;
+                cout << endl << "enter value Ut:";
+                cin >> Ut;
 
                 Yt = this->ModelFunction(Yt, Ut);
-                std::cout << "\t\t\t\t" << i + 1 << "\t\t\t\t" << Yt;
+                cout << "\t\t\t\t" << i + 1 << "\t\t\t\t" << Yt;
             }
         }
 
@@ -64,14 +65,14 @@ public:
     {
         double Yt = y;
         double Ut = u;
-        std::cout << std::endl << std::endl << "Liner model";
-        std::cout << "\t\t\tIteration number:" << "\t\t\t" << "Yt";
+        cout << endl << endl << "Liner model";
+        cout << "\t\t\tIteration number:" << "\t\t\t" << "Yt";
         for (int i = 0; i < NumLin; i++) {
-            std::cout << std::endl << "enter value Ut:";
-            std::cin >> Ut;
+            cout << endl << "enter value Ut:";
+            cin >> Ut;
 
             Yt = this->ModelFunction(Yt, Ut);
-            std::cout << "\t\t\t\t" << i + 1 << "\t\t\t\t" << Yt;
+            cout << "\t\t\t\t" << i + 1 << "\t\t\t\t" << Yt;
         }
     }
 };
@@ -107,7 +108,7 @@ public:
             e = w - y;
             _uk = CurrentValueUk(e, e1, e2);
             y = obj.ModelFunction(y0, _uk);
-            std::cout << "E = " << e << ", Yt = " << y << ", Uk = " << _uk << std::endl;
+            cout << "E = " << e << ", Yt = " << y << ", Uk = " << _uk << endl;
             e2 = e1;
             e1 = e;
         }
@@ -129,33 +130,33 @@ int main()
     int NumNotLin = 0;
     const double w = 8;
     const double y0 = 3;
-    std::cout << "Number of iteration" << std::endl;
+    cout << "Number of iteration" << endl;
 
-    std::cout << "Liner Model:";
-    std::cin >> NumLin;
+    cout << "Liner Model:";
+    cin >> NumLin;
 
-    std::cout << "Not Liner Model:";
-    std::cin >> NumNotLin;
-    std::cout << "enter value y:";
-    std::cin >> y;
-    std::cout << "enter value u:";
-    std::cin >> u;
+    cout << "Not Liner Model:";
+    cin >> NumNotLin;
+    cout << "enter value y:";
+    cin >> y;
+    cout << "enter value u:";
+    cin >> u;
 
-    std::cout << std::endl << "Liner model" << std::endl;
-    std::cout << "enter value a:";
-    std::cin >> aLiner;
-    std::cout << "enter value b:";
-    std::cin >> bLiner;
+    cout << endl << "Liner model" << endl;
+    cout << "enter value a:";
+    cin >> aLiner;
+    cout << "enter value b:";
+    cin >> bLiner;
 
-    std::cout << std::endl << "Not liner model" << std::endl;
-    std::cout << "enter value a:";
-    std::cin >> aNotLiner;
-    std::cout << "enter value b:";
-    std::cin >> bNotLiner;
-    std::cout << "enter value c:";
-    std::cin >> c;
-    std::cout << "enter value d:";
-    std::cin >> d;
+    cout << endl << "Not liner model" << endl;
+    cout << "enter value a:";
+    cin >> aNotLiner;
+    cout << "enter value b:";
+    cin >> bNotLiner;
+    cout << "enter value c:";
+    cin >> c;
+    cout << "enter value d:";
+    cin >> d;
     ModelLiner modelLin(aLiner, bLiner);
     modelLin.OutputModel(y, u, NumLin);
     NotModelLiner notmodelLin(aNotLiner, bNotLiner, c, d);
@@ -164,11 +165,11 @@ int main()
     Regulator PIDregulator;
 
 
-    std::cout << "Liner Model:"<<std::endl;
+    cout << "Liner Model:"<<endl;
     PIDregulator.Regulate(w, y0, modelLin);
-    std::cout << std::endl;
+    cout << endl;
 
-    std::cout << "Not linear model" << std::endl;
+    cout << "Not linear model" << endl;
     PIDregulator.Regulate(w, y0, notmodelLin);
     system("Pause");
 
