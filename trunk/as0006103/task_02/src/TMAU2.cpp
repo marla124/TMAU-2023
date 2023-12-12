@@ -2,12 +2,18 @@
 #include <cmath>
 
 using namespace std;
+/**
+*@brief abstract model class
+*/
 class Object {
 public:
     virtual ~Object() = default;
     virtual double ModelFunction(double Yt, double Ut) = 0;
     virtual void OutputModel(double y, double u, int NumLin) = 0;
 };
+/**
+*@brief The class of a non-linear model
+*/
 class NotModelLinerValue : public Object
 {
 public:
@@ -50,7 +56,9 @@ public:
 
     }
 };
-
+/**
+*@brief Linear model class
+*/
 class ModelLinerValue : public Object
 {
 public:
@@ -76,7 +84,9 @@ public:
         }
     }
 };
-
+/**
+*@brief The controller's PID class
+*/
 class Regulator
 {
 private:
@@ -87,7 +97,9 @@ private:
     const double _t = 10;
     const double timeModeling = 30;
     double _uk = 0;
-
+    /**
+    *@brief The method for calculating the UK
+    */
     double CurrentValueUk(double eK, double eK1, double eK2)
     {
         double _q0 = _k * (1 + _td / _t0);
@@ -115,6 +127,10 @@ public:
         _uk = 0;
     }
 };
+/**
+*@brief Method for entering the requested values
+*@param enter the text of the value request, value it's value
+*/
 template<typename T> T EnterValue(string const& enter, T value)
 {
     cout << enter;
